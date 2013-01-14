@@ -1,0 +1,26 @@
+{
+  "name": "aws3",
+  "version": "0.0.1",
+  "description": "Signs and prepares requests using AWS Signature Version 3",
+  "author": "Michael Hart <michael.hart.au@gmail.com> (http://github.com/mhart)",
+  "main": "aws3.js",
+  "keywords": [
+    "amazon",
+    "aws",
+    "signature",
+    "route53",
+    "swf"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mhart/aws3.git"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "should": "~1.2.1",
+    "mocha": "~1.7.4"
+  },
+  "scripts": {
+    "test": "mocha ./test/fast.js ./test/slow.js -b -t 100s -R list"
+  }
+}
