@@ -1,8 +1,8 @@
-var should = require('should')
-  , aws3   = require('../')
-  , cred   = { accessKeyId: 'ABCDEF', secretAccessKey: 'abcdef1234567890' }
-  , date   = 'Wed, 26 Dec 2012 06:10:30 GMT'
-  , auth   = 'AWS3-HTTPS AWSAccessKeyId=ABCDEF,' +
+require('should')
+var aws3   = require('../'),
+    cred   = { accessKeyId: 'ABCDEF', secretAccessKey: 'abcdef1234567890' },
+    date   = 'Wed, 26 Dec 2012 06:10:30 GMT',
+    auth   = 'AWS3-HTTPS AWSAccessKeyId=ABCDEF,' +
              'Algorithm=HmacSHA256,' +
              'Signature=Cl1olDHzwBq9V1pUWhQuoBLq5Z7m9RSTYZ7BJP/9baQ='
 
@@ -40,8 +40,8 @@ describe('aws3', function() {
 
   describe('#sign() with credentials', function() {
     it('should use passed in values', function() {
-      var cred = { accessKeyId: 'A', secretAccessKey: 'B' }
-        , opts = aws3.sign({ service: 'route53', headers: { Date: date } }, cred)
+      var cred = { accessKeyId: 'A', secretAccessKey: 'B' },
+          opts = aws3.sign({ service: 'route53', headers: { Date: date } }, cred)
       opts.headers['X-Amzn-Authorization'].should.equal(
         'AWS3-HTTPS AWSAccessKeyId=A,' +
         'Algorithm=HmacSHA256,' +
@@ -53,12 +53,12 @@ describe('aws3', function() {
     it('should add hostname and default region', function() {
       var opts = aws3.sign({ service: 'swf' })
       opts.hostname.should.equal('swf.us-east-1.amazonaws.com')
-      opts.headers['Host'].should.equal('swf.us-east-1.amazonaws.com')
+      opts.headers.Host.should.equal('swf.us-east-1.amazonaws.com')
     })
     it('should add hostname and no region if service is regionless', function() {
       var opts = aws3.sign({ service: 'route53' })
       opts.hostname.should.equal('route53.amazonaws.com')
-      opts.headers['Host'].should.equal('route53.amazonaws.com')
+      opts.headers.Host.should.equal('route53.amazonaws.com')
     })
     it('should populate AWS headers correctly', function() {
       var opts = aws3.sign({ service: 'route53', headers: { Date: date } })
@@ -71,7 +71,7 @@ describe('aws3', function() {
     it('should add correct hostname', function() {
       var opts = aws3.sign({ service: 'swf', region: 'us-west-1' })
       opts.hostname.should.equal('swf.us-west-1.amazonaws.com')
-      opts.headers['Host'].should.equal('swf.us-west-1.amazonaws.com')
+      opts.headers.Host.should.equal('swf.us-west-1.amazonaws.com')
     })
   })
 

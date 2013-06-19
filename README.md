@@ -22,8 +22,8 @@ Example
 -------
 
 ```javascript
-var https = require('https')
-  , aws3  = require('aws3')
+var https = require('https'),
+    aws3  = require('aws3')
 
 // given an options object you could pass to http.request
 var opts = { host: 'route53.amazonaws.com', path: '/2012-02-29/hostedzone' }
@@ -38,7 +38,7 @@ console.log(opts)
   headers: {
     Host: 'route53.amazonaws.com'
     'X-Amz-Date': 'Mon, 14 Jan 2013 08:02:29 GMT',
-    'X-Amzn-Authorization': 'AWS3-HTTPS AWSAccessKeyId=ABCDEF1234567890,Algorithm=HmacSHA256,Signature=/frrTLlefAd19DcPY9LJarRejLxf3NiHZXN/t0VJJTs='
+    'X-Amzn-Authorization': 'AWS3-HTTPS AWSAccessKeyId=ABCDEF1234567890,Algorithm=HmacSHA256,Signature=...'
   }
 }
 */

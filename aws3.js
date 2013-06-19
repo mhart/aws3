@@ -1,6 +1,6 @@
-var aws3   = exports
-var url    = require('url')
-var crypto = require('crypto')
+var aws3   = exports,
+    url    = require('url'),
+    crypto = require('crypto')
 
 // http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/RESTAuthentication.html
 // http://docs.amazonwebservices.com/amazonswf/latest/developerguide/HMACAuth-swf.html
@@ -11,8 +11,8 @@ function RequestSigner(request, credentials) {
 
   if (typeof request === 'string') request = url.parse(request)
 
-  var headers = request.headers || {}
-    , hostParts = this.matchHost(request.hostname || request.host || headers['Host'])
+  var headers = request.headers || {},
+      hostParts = this.matchHost(request.hostname || request.host || headers.Host)
 
   this.request = request
   this.credentials = credentials || this.defaultCredentials()
@@ -37,17 +37,17 @@ RequestSigner.prototype.createHost = function() {
 }
 
 RequestSigner.prototype.sign = function() {
-  var request = this.request
-    , headers = request.headers = (request.headers || {})
-    , date = new Date(headers['Date'] || new Date)
+  var request = this.request,
+      headers = request.headers = (request.headers || {}),
+      date = new Date(headers.Date || new Date)
 
   if (!request.method && request.body)
     request.method = 'POST'
 
-  if (!headers['Host'] && !headers['host'])
-    headers['Host'] = request.hostname || request.host || this.createHost()
+  if (!headers.Host && !headers.host)
+    headers.Host = request.hostname || request.host || this.createHost()
   if (!request.hostname && !request.host)
-    request.hostname = headers['Host'] || headers['host']
+    request.hostname = headers.Host || headers.host
 
   if (request.body && !headers['Content-Type'] && !headers['content-type'])
     headers['Content-Type'] = 'text/xml'
@@ -60,7 +60,7 @@ RequestSigner.prototype.sign = function() {
   if (this.credentials.sessionToken)
     headers['X-Amz-Security-Token'] = this.credentials.sessionToken
 
-  delete headers['X-Amzn-Authorization']
+  if (headers['X-Amzn-Authorization']) delete headers['X-Amzn-Authorization']
   headers['X-Amzn-Authorization'] = this.authHeader()
 
   return request
