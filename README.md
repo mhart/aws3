@@ -1,5 +1,5 @@
-aws3 (DEPRECATED – all services can now use aws4 instead)
----------------------------------------------------------
+aws3 (DEPRECATED – all services now use aws4)
+---------------------------------------------
 
 [![Build Status](https://secure.travis-ci.org/mhart/aws3.png?branch=master)](http://travis-ci.org/mhart/aws3)
 
