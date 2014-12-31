@@ -1,22 +1,12 @@
-aws3
-----
+aws3 (DEPRECATED – all services can now use aws4 instead)
+---------------------------------------------------------
 
 [![Build Status](https://secure.travis-ci.org/mhart/aws3.png?branch=master)](http://travis-ci.org/mhart/aws3)
 
 A small utility to sign vanilla node.js http(s) request options using Amazon's
 [AWS Signature Version 3](http://docs.amazonwebservices.com/amazonswf/latest/developerguide/HMACAuth-swf.html).
 
-This signature is supported only be a couple of Amazon services:
-[SWF](http://docs.aws.amazon.com/amazonswf/latest/apireference/) and
-[Route53](http://docs.aws.amazon.com/Route53/latest/APIReference/).
-
-It also provides defaults for a number of core AWS headers and
-request parameters, making it a very easy to query AWS services, or
-build out a fully-featured AWS library.
-
-*NB: It is preferrable to use the more secure
-[aws4](https://github.com/mhart/aws4) over this library for AWS services
-that support AWS Signature Version 4.*
+*NB: It is preferrable to use the more secure [aws4](https://github.com/mhart/aws4) over this library.*
 
 Example
 -------
@@ -118,9 +108,13 @@ aws3.sign(requestOptions, {
 ```
 export AWS_SECRET_ACCESS_KEY="<your-secret-access-key>"
 export AWS_ACCESS_KEY_ID="<your-access-key-id>"
+export AWS_SESSION_TOKEN="<your-session-token>"
 ```
 
 (will also use `AWS_ACCESS_KEY` and `AWS_SECRET_KEY` if available)
+
+The `sessionToken` property and `AWS_SESSION_TOKEN` environment variable are optional for signing
+with [IAM STS temporary credentials](http://docs.aws.amazon.com/STS/latest/UsingSTS/using-temp-creds.html).
 
 Installation
 ------------
